@@ -1,0 +1,14 @@
+library ieee;
+use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
+use IEEE.std_logic_arith.all;
+
+entity cam is
+port 
+(		clk : in std_logic;
+);
+end cam;
+
+architecture bhv of cam is
+begin
+end cam;
