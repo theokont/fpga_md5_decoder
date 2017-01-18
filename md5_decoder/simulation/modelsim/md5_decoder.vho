@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus II 64-Bit"
 -- VERSION "Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition"
 
--- DATE "01/18/2017 01:04:45"
+-- DATE "01/18/2017 23:12:59"
 
 -- 
 -- Device: Altera EP2C20F484C7 Package FBGA484
@@ -34,13 +34,19 @@ USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY 	md5_decoder IS
     PORT (
 	clk : IN std_logic;
-	found : OUT std_logic
+	found1 : OUT std_logic;
+	found2 : OUT std_logic;
+	found3 : OUT std_logic;
+	found4 : OUT std_logic
 	);
 END md5_decoder;
 
 -- Design Ports Information
+-- found1	=>  Location: PIN_Y19,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
+-- found2	=>  Location: PIN_U19,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
+-- found3	=>  Location: PIN_R19,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
+-- found4	=>  Location: PIN_R20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
 -- clk	=>  Location: PIN_L1,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
--- found	=>  Location: PIN_R20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
 
 
 ARCHITECTURE structure OF md5_decoder IS
@@ -54,15 +60,32 @@ SIGNAL ww_devoe : std_logic;
 SIGNAL ww_devclrn : std_logic;
 SIGNAL ww_devpor : std_logic;
 SIGNAL ww_clk : std_logic;
-SIGNAL ww_found : std_logic;
+SIGNAL ww_found1 : std_logic;
+SIGNAL ww_found2 : std_logic;
+SIGNAL ww_found3 : std_logic;
+SIGNAL ww_found4 : std_logic;
+SIGNAL \clk~clkctrl_INCLK_bus\ : std_logic_vector(3 DOWNTO 0);
+SIGNAL \clk~combout\ : std_logic;
+SIGNAL \clk~clkctrl_outclk\ : std_logic;
+SIGNAL \m|temp_found1~feeder_combout\ : std_logic;
+SIGNAL \m|temp_found1~regout\ : std_logic;
+SIGNAL \m|temp_found2~feeder_combout\ : std_logic;
+SIGNAL \m|temp_found2~regout\ : std_logic;
+SIGNAL \m|temp_found4~feeder_combout\ : std_logic;
+SIGNAL \m|temp_found4~regout\ : std_logic;
 
 BEGIN
 
 ww_clk <= clk;
-found <= ww_found;
+found1 <= ww_found1;
+found2 <= ww_found2;
+found3 <= ww_found3;
+found4 <= ww_found4;
 ww_devoe <= devoe;
 ww_devclrn <= devclrn;
 ww_devpor <= devpor;
+
+\clk~clkctrl_INCLK_bus\ <= (gnd & gnd & gnd & \clk~combout\);
 
 -- Location: PIN_L1,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
 \clk~I\ : cycloneii_io
@@ -87,10 +110,142 @@ PORT MAP (
 	devpor => ww_devpor,
 	devoe => ww_devoe,
 	oe => GND,
-	padio => ww_clk);
+	padio => ww_clk,
+	combout => \clk~combout\);
 
--- Location: PIN_R20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
-\found~I\ : cycloneii_io
+-- Location: CLKCTRL_G2
+\clk~clkctrl\ : cycloneii_clkctrl
+-- pragma translate_off
+GENERIC MAP (
+	clock_type => "global clock",
+	ena_register_mode => "none")
+-- pragma translate_on
+PORT MAP (
+	inclk => \clk~clkctrl_INCLK_bus\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	outclk => \clk~clkctrl_outclk\);
+
+-- Location: LCCOMB_X49_Y2_N0
+\m|temp_found1~feeder\ : cycloneii_lcell_comb
+-- Equation(s):
+-- \m|temp_found1~feeder_combout\ = VCC
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111111111111111",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	combout => \m|temp_found1~feeder_combout\);
+
+-- Location: LCFF_X49_Y2_N1
+\m|temp_found1\ : cycloneii_lcell_ff
+PORT MAP (
+	clk => \clk~clkctrl_outclk\,
+	datain => \m|temp_found1~feeder_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	regout => \m|temp_found1~regout\);
+
+-- Location: LCCOMB_X49_Y4_N0
+\m|temp_found2~feeder\ : cycloneii_lcell_comb
+-- Equation(s):
+-- \m|temp_found2~feeder_combout\ = VCC
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111111111111111",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	combout => \m|temp_found2~feeder_combout\);
+
+-- Location: LCFF_X49_Y4_N1
+\m|temp_found2\ : cycloneii_lcell_ff
+PORT MAP (
+	clk => \clk~clkctrl_outclk\,
+	datain => \m|temp_found2~feeder_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	regout => \m|temp_found2~regout\);
+
+-- Location: LCCOMB_X49_Y10_N0
+\m|temp_found4~feeder\ : cycloneii_lcell_comb
+-- Equation(s):
+-- \m|temp_found4~feeder_combout\ = VCC
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111111111111111",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	combout => \m|temp_found4~feeder_combout\);
+
+-- Location: LCFF_X49_Y10_N1
+\m|temp_found4\ : cycloneii_lcell_ff
+PORT MAP (
+	clk => \clk~clkctrl_outclk\,
+	datain => \m|temp_found4~feeder_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	regout => \m|temp_found4~regout\);
+
+-- Location: PIN_Y19,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
+\found1~I\ : cycloneii_io
+-- pragma translate_off
+GENERIC MAP (
+	input_async_reset => "none",
+	input_power_up => "low",
+	input_register_mode => "none",
+	input_sync_reset => "none",
+	oe_async_reset => "none",
+	oe_power_up => "low",
+	oe_register_mode => "none",
+	oe_sync_reset => "none",
+	operation_mode => "output",
+	output_async_reset => "none",
+	output_power_up => "low",
+	output_register_mode => "none",
+	output_sync_reset => "none")
+-- pragma translate_on
+PORT MAP (
+	datain => \m|temp_found1~regout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	devoe => ww_devoe,
+	oe => VCC,
+	padio => ww_found1);
+
+-- Location: PIN_U19,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
+\found2~I\ : cycloneii_io
+-- pragma translate_off
+GENERIC MAP (
+	input_async_reset => "none",
+	input_power_up => "low",
+	input_register_mode => "none",
+	input_sync_reset => "none",
+	oe_async_reset => "none",
+	oe_power_up => "low",
+	oe_register_mode => "none",
+	oe_sync_reset => "none",
+	operation_mode => "output",
+	output_async_reset => "none",
+	output_power_up => "low",
+	output_register_mode => "none",
+	output_sync_reset => "none")
+-- pragma translate_on
+PORT MAP (
+	datain => \m|temp_found2~regout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	devoe => ww_devoe,
+	oe => VCC,
+	padio => ww_found2);
+
+-- Location: PIN_R19,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
+\found3~I\ : cycloneii_io
 -- pragma translate_off
 GENERIC MAP (
 	input_async_reset => "none",
@@ -113,7 +268,33 @@ PORT MAP (
 	devpor => ww_devpor,
 	devoe => ww_devoe,
 	oe => VCC,
-	padio => ww_found);
+	padio => ww_found3);
+
+-- Location: PIN_R20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 24mA
+\found4~I\ : cycloneii_io
+-- pragma translate_off
+GENERIC MAP (
+	input_async_reset => "none",
+	input_power_up => "low",
+	input_register_mode => "none",
+	input_sync_reset => "none",
+	oe_async_reset => "none",
+	oe_power_up => "low",
+	oe_register_mode => "none",
+	oe_sync_reset => "none",
+	operation_mode => "output",
+	output_async_reset => "none",
+	output_power_up => "low",
+	output_register_mode => "none",
+	output_sync_reset => "none")
+-- pragma translate_on
+PORT MAP (
+	datain => \m|temp_found4~regout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	devoe => ww_devoe,
+	oe => VCC,
+	padio => ww_found4);
 END structure;
 
 

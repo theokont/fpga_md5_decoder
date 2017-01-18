@@ -55,5 +55,8 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
 set_location_assignment PIN_L1 -to clk
-set_location_assignment PIN_R20 -to found
+set_location_assignment PIN_Y19 -to found1
+set_location_assignment PIN_U19 -to found2
+set_location_assignment PIN_R19 -to found3
+set_location_assignment PIN_R20 -to found4
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

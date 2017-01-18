@@ -30,7 +30,7 @@ def hash_generator(n_hashes):
     # Save the words and the hashes in txt files.
     with open('words.txt', 'w+') as word_file:
         word_file.write('\n'.join(words))
-    with open('hashes.data', 'w+') as hash_file:
+    with open('hashes.txt', 'w+') as hash_file:
         hash_file.write('\n'.join(hashes)) 
 
 def main():
