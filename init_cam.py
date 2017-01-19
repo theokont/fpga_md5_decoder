@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ Creates a CAM memory component using a template file and a list of hashes for initialization."""
 import argparse
 

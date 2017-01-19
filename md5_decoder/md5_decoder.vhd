@@ -10,10 +10,28 @@ use ieee.std_logic_arith.all;
 entity md5_decoder is
 port 
 (		clk : in std_logic;
+		toggle1 : in std_logic;
+		toggle2 : in std_logic;
+		toggle3 : in std_logic;
+		toggle4 : in std_logic;
 		found1 : out std_logic;
 		found2 : out std_logic;
 		found3 : out std_logic;
-		found4 : out std_logic
+		found4 : out std_logic;
+		hex00 : out std_logic;
+		hex01 : out std_logic;
+		hex02 : out std_logic;
+		hex03 : out std_logic;
+		hex04 : out std_logic;
+		hex05 : out std_logic;
+		hex06 : out std_logic;
+		hex10 : out std_logic;
+		hex11 : out std_logic;
+		hex12 : out std_logic;
+		hex13 : out std_logic;
+		hex14 : out std_logic;
+		hex15 : out std_logic;
+		hex16 : out std_logic
 );
 end md5_decoder;
 
@@ -26,6 +44,8 @@ signal user_hash1 : std_logic_vector(127 downto 0);
 signal user_hash2 : std_logic_vector(127 downto 0);
 signal user_hash3 : std_logic_vector(127 downto 0);
 signal user_hash4 : std_logic_vector(127 downto 0);
+signal valid : std_logic;
+signal address : std_logic_vector(4 downto 0);
 
 component cam is
 port 
@@ -35,18 +55,51 @@ port
 		user_hash2 : in std_logic_vector(127 downto 0);
 		user_hash3 : in std_logic_vector(127 downto 0);
 		user_hash4 : in std_logic_vector(127 downto 0);
+		toggle1 : in std_logic;
+		toggle2 : in std_logic;
+		toggle3 : in std_logic;
+		toggle4 : in std_logic;
 		found1 : out std_logic;
 		found2 : out std_logic;
 		found3 : out std_logic;
-		found4 : out std_logic
+		found4 : out std_logic;
+		valid : out std_logic;
+		address : out std_logic_vector(4 downto 0)
 );
 end component cam;
+
+component hex_display is 
+port (
+	clk : in std_logic;
+	valid : in std_logic;
+	address : in std_logic_vector(4 downto 0);
+	hex00 : out std_logic;
+	hex01 : out std_logic;
+	hex02 : out std_logic;
+	hex03 : out std_logic;
+	hex04 : out std_logic;
+	hex05 : out std_logic;
+	hex06 : out std_logic;
+	hex10 : out std_logic;
+	hex11 : out std_logic;
+	hex12 : out std_logic;
+	hex13 : out std_logic;
+	hex14 : out std_logic;
+	hex15 : out std_logic;
+	hex16 : out std_logic
+);
+end component hex_display;
+
 begin
-user_hash1 <= "11010110111110010101011011000000001101001000100110001011001010110100001011110110110110000011101110111101010000011100100110001011";
-user_hash2 <= "11110001110010110111111100000011101111101101100001110011100111101011101000000110010110101101010011111011011001001011111110100100";
-user_hash3 <= (others=>'0');
-user_hash4 <= "11100101101101111010010110010111101001001100111000010101011101010001111010100011111000010100101010111001010001100001011011010110";
---user_hash <= (others => '0');
+
+user_hash1 <= "11111111000000011110001000111000111000011010100111101111101110100001011111011000100001101001111001100001010001000100100011110110";
+user_hash2 <= "01011101000011111100011000011001111111111010000001000100000110111100001011111100001001111100001101001110011010111000000100001100";
+user_hash3 <= "11011111010001010101101000101100001000111011000110111100101000110111001111111000010110010001001011000010110010011111100100001111";
+user_hash4 <= "11111101001001101111001100110011100000011110101110001111111000001011010101011011111110000110001101110110001000110111100010101100";
+
+
+
 cam_en <= '1';
-m : cam port map (clk, cam_en, user_hash1, user_hash2, user_hash3, user_hash4, found1, found2, found3, found4);
+m : cam port map (clk, cam_en, user_hash1, user_hash2, user_hash3, user_hash4, toggle1, toggle2, toggle3, toggle4, found1, found2, found3, found4, valid, address);
+h : hex_display port map (clk, valid, address, hex00, hex01, hex02, hex03, hex04, hex05, hex06, hex10, hex11, hex12, hex13, hex14, hex15, hex16);
 end bhv;

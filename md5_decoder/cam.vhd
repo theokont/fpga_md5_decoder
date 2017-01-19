@@ -16,10 +16,16 @@ port
 		user_hash2 : in std_logic_vector(127 downto 0);
 		user_hash3 : in std_logic_vector(127 downto 0);
 		user_hash4 : in std_logic_vector(127 downto 0);
+		toggle1 : in std_logic;
+		toggle2 : in std_logic;
+		toggle3 : in std_logic;
+		toggle4 : in std_logic;
 		found1 : out std_logic;
 		found2 : out std_logic;
 		found3 : out std_logic;
-		found4 : out std_logic
+		found4 : out std_logic;
+		valid : out std_logic;
+		address : out std_logic_vector(4 downto 0)
 );
 end cam;
 
@@ -31,6 +37,11 @@ signal temp_found1 : std_logic := '0';
 signal temp_found2 : std_logic := '0';
 signal temp_found3 : std_logic := '0';
 signal temp_found4 : std_logic := '0';
+signal temp_address : std_logic_vector(4 downto 0) := "00000";
+signal temp_address1 : std_logic_vector(4 downto 0);
+signal temp_address2 : std_logic_vector(4 downto 0);
+signal temp_address3 : std_logic_vector(4 downto 0);
+signal temp_address4 : std_logic_vector(4 downto 0);
 begin
 
 cam(0) <= "11011111111101111010011101001110111000001001011001100101001001000000100101010000101000100110100100100110101001101111011110010110";
@@ -60,31 +71,59 @@ found1 <= temp_found1;
 found2 <= temp_found2;
 found3 <= temp_found3;
 found4 <= temp_found4;
-find_match : process(clk, en, user_hash1, user_hash2, user_hash3, user_hash4, cam, temp_found1, temp_found2, temp_found3, temp_found4)
+address <= temp_address;
+find_match : process(clk, en, user_hash1, user_hash2, user_hash3, user_hash4, cam)
 begin
 if rising_edge(clk) then 
 	for addr in memory_array'range loop
 		if( user_hash1 = cam(conv_integer(addr))) then 
 			temp_found1 <= '1';
+			temp_address1 <= conv_std_logic_vector(addr, 5);
 		else
 			null;
 		end if;
 		if( user_hash2 = cam(conv_integer(addr))) then 
 			temp_found2 <= '1';
+			temp_address2 <= conv_std_logic_vector(addr, 5);
 		else
 			null;
 		end if;
 		if( user_hash3 = cam(conv_integer(addr))) then 
 			temp_found3 <= '1';
+			temp_address3 <= conv_std_logic_vector(addr, 5);
 		else
 			null;
 		end if;
 		if( user_hash4 = cam(conv_integer(addr))) then 
 			temp_found4 <= '1';
+			temp_address4 <= conv_std_logic_vector(addr, 5);
 		else
 			null;
 		end if;
 	end loop;
+end if;
+end process;
+
+
+toggle_address : process(clk, toggle1, toggle2, toggle3, toggle4)
+begin
+if rising_edge(clk) then
+	if ((toggle1 = '1') and (toggle2 = '0') and (toggle3 = '0') and (toggle4 = '0')) then 
+		temp_address <= temp_address1;
+		valid <= '1';
+	elsif ((toggle1 = '0') and (toggle2 = '1') and (toggle3 = '0') and (toggle4 = '0')) then 
+		temp_address <= temp_address2;
+		valid <= '1';
+	elsif ((toggle1 = '0') and (toggle2 = '0') and (toggle3 = '1') and (toggle4 = '0')) then 
+		temp_address <= temp_address3;
+		valid <= '1';
+	elsif ((toggle1 = '0') and (toggle2 = '0') and (toggle3 = '0') and (toggle4 = '1')) then 
+		temp_address <= temp_address4;
+		valid <= '1';
+	else 
+		temp_address <= (others => '0');
+		valid <= '0';
+	end if;
 end if;
 end process;
 end bhv;
