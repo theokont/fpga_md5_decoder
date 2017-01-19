@@ -1,5 +1,5 @@
 Analysis & Synthesis report for md5_decoder
-Wed Jan 18 01:04:32 2017
+Thu Jan 19 03:25:48 2017
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -15,9 +15,11 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Registers Removed During Synthesis
   9. General Register Statistics
- 10. Port Connectivity Checks: "cam:mem"
- 11. Elapsed Time Per Partition
- 12. Analysis & Synthesis Messages
+ 10. Inverted Register Statistics
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Port Connectivity Checks: "cam:m"
+ 13. Elapsed Time Per Partition
+ 14. Analysis & Synthesis Messages
 
 
 
@@ -43,16 +45,16 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Jan 18 01:04:32 2017           ;
+; Analysis & Synthesis Status        ; Successful - Thu Jan 19 03:25:48 2017           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; md5_decoder                                     ;
 ; Top-level Entity Name              ; md5_decoder                                     ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 0                                               ;
-;     Total combinational functions  ; 0                                               ;
-;     Dedicated logic registers      ; 0                                               ;
-; Total registers                    ; 0                                               ;
-; Total pins                         ; 2                                               ;
+; Total logic elements               ; 29                                              ;
+;     Total combinational functions  ; 23                                              ;
+;     Dedicated logic registers      ; 23                                              ;
+; Total registers                    ; 23                                              ;
+; Total pins                         ; 23                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
 ; Embedded Multiplier 9-bit elements ; 0                                               ;
@@ -156,14 +158,15 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                       ;
-+----------------------------------+-----------------+-----------------+-------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                ; Library ;
-+----------------------------------+-----------------+-----------------+-------------------------------------------------------------+---------+
-; md5_decoder.vhd                  ; yes             ; User VHDL File  ; /home/theovac/Desktop/Projects/md5_cracking/md5_decoder.vhd ;         ;
-; cam.vhd                          ; yes             ; User VHDL File  ; /home/theovac/Desktop/Projects/md5_cracking/cam.vhd         ;         ;
-+----------------------------------+-----------------+-----------------+-------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                         ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                  ; Library ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------------------------+---------+
+; md5_decoder.vhd                  ; yes             ; User VHDL File  ; /home/theodoros/Desktop/Projects/fpga_md5_decoder/md5_decoder/md5_decoder.vhd ;         ;
+; cam.vhd                          ; yes             ; User VHDL File  ; /home/theodoros/Desktop/Projects/fpga_md5_decoder/md5_decoder/cam.vhd         ;         ;
+; hex_display.vhd                  ; yes             ; User VHDL File  ; /home/theodoros/Desktop/Projects/fpga_md5_decoder/md5_decoder/hex_display.vhd ;         ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------------------------+---------+
 
 
 +-----------------------------------------------------+
@@ -171,44 +174,63 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-------+
 ; Resource                                    ; Usage ;
 +---------------------------------------------+-------+
+; Estimated Total logic elements              ; 29    ;
 ;                                             ;       ;
-; Total combinational functions               ; 0     ;
+; Total combinational functions               ; 23    ;
 ; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 0     ;
-;     -- 3 input functions                    ; 0     ;
-;     -- <=2 input functions                  ; 0     ;
+;     -- 4 input functions                    ; 15    ;
+;     -- 3 input functions                    ; 3     ;
+;     -- <=2 input functions                  ; 5     ;
 ;                                             ;       ;
 ; Logic elements by mode                      ;       ;
-;     -- normal mode                          ; 0     ;
+;     -- normal mode                          ; 23    ;
 ;     -- arithmetic mode                      ; 0     ;
 ;                                             ;       ;
-; Total registers                             ; 0     ;
-;     -- Dedicated logic registers            ; 0     ;
+; Total registers                             ; 23    ;
+;     -- Dedicated logic registers            ; 23    ;
 ;     -- I/O registers                        ; 0     ;
 ;                                             ;       ;
-; I/O pins                                    ; 2     ;
+; I/O pins                                    ; 23    ;
 ; Embedded Multiplier 9-bit elements          ; 0     ;
+; Maximum fan-out node                        ; clk   ;
+; Maximum fan-out                             ; 23    ;
+; Total fan-out                               ; 139   ;
+; Average fan-out                             ; 2.01  ;
 +---------------------------------------------+-------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
-+----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
-; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
-+----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
-; |md5_decoder               ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 2    ; 0            ; |md5_decoder        ; work         ;
-+----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name        ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------+--------------+
+; |md5_decoder               ; 23 (0)            ; 23 (0)       ; 0           ; 0            ; 0       ; 0         ; 23   ; 0            ; |md5_decoder               ; work         ;
+;    |cam:m|                 ; 5 (5)             ; 9 (9)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |md5_decoder|cam:m         ; work         ;
+;    |hex_display:h|         ; 18 (18)           ; 14 (14)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |md5_decoder|hex_display:h ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                  ;
-+---------------------------------------+---------------------------------------------+
-; Register name                         ; Reason for Removal                          ;
-+---------------------------------------+---------------------------------------------+
-; cam:mem|temp_found                    ; Stuck at GND due to stuck port clock_enable ;
-; Total Number of Removed Registers = 1 ;                                             ;
-+---------------------------------------+---------------------------------------------+
++---------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                              ;
++----------------------------------------+----------------------------------------+
+; Register name                          ; Reason for Removal                     ;
++----------------------------------------+----------------------------------------+
+; cam:m|temp_address1[2..4]              ; Stuck at GND due to stuck port data_in ;
+; cam:m|temp_address1[1]                 ; Stuck at VCC due to stuck port data_in ;
+; cam:m|temp_address1[0]                 ; Stuck at GND due to stuck port data_in ;
+; cam:m|temp_address2[3,4]               ; Stuck at GND due to stuck port data_in ;
+; cam:m|temp_address2[0..2]              ; Stuck at VCC due to stuck port data_in ;
+; cam:m|temp_address3[4]                 ; Stuck at GND due to stuck port data_in ;
+; cam:m|temp_address3[3]                 ; Stuck at VCC due to stuck port data_in ;
+; cam:m|temp_address3[2]                 ; Stuck at GND due to stuck port data_in ;
+; cam:m|temp_address3[0,1]               ; Stuck at VCC due to stuck port data_in ;
+; cam:m|temp_address4[4]                 ; Stuck at VCC due to stuck port data_in ;
+; cam:m|temp_address4[2,3]               ; Stuck at GND due to stuck port data_in ;
+; cam:m|temp_address4[0,1]               ; Stuck at VCC due to stuck port data_in ;
+; cam:m|valid                            ; Merged with cam:m|temp_address[1]      ;
+; Total Number of Removed Registers = 21 ;                                        ;
++----------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -216,7 +238,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 0     ;
+; Total registers                              ; 23    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
@@ -226,84 +248,269 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 
 
-+-------------------------------------------------------+
-; Port Connectivity Checks: "cam:mem"                   ;
-+---------------------+-------+----------+--------------+
-; Port                ; Type  ; Severity ; Details      ;
-+---------------------+-------+----------+--------------+
-; en                  ; Input ; Info     ; Stuck at VCC ;
-; user_hash[127..125] ; Input ; Info     ; Stuck at VCC ;
-; user_hash[121..117] ; Input ; Info     ; Stuck at VCC ;
-; user_hash[115..114] ; Input ; Info     ; Stuck at VCC ;
-; user_hash[108..106] ; Input ; Info     ; Stuck at VCC ;
-; user_hash[93..92]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[89..88]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[86..84]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[70..65]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[62..61]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[52..51]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[49..48]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[40..39]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[31..29]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[23..22]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[11..10]   ; Input ; Info     ; Stuck at VCC ;
-; user_hash[5..4]     ; Input ; Info     ; Stuck at VCC ;
-; user_hash[124..122] ; Input ; Info     ; Stuck at GND ;
-; user_hash[105..102] ; Input ; Info     ; Stuck at GND ;
-; user_hash[98..96]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[91..90]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[81..80]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[76..75]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[73..71]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[64..63]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[60..58]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[56..53]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[47..43]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[38..37]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[33..32]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[26..24]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[21..20]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[18..17]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[13..12]   ; Input ; Info     ; Stuck at GND ;
-; user_hash[7..6]     ; Input ; Info     ; Stuck at GND ;
-; user_hash[116]      ; Input ; Info     ; Stuck at GND ;
-; user_hash[113]      ; Input ; Info     ; Stuck at GND ;
-; user_hash[112]      ; Input ; Info     ; Stuck at VCC ;
-; user_hash[111]      ; Input ; Info     ; Stuck at GND ;
-; user_hash[110]      ; Input ; Info     ; Stuck at VCC ;
-; user_hash[109]      ; Input ; Info     ; Stuck at GND ;
-; user_hash[101]      ; Input ; Info     ; Stuck at VCC ;
-; user_hash[100]      ; Input ; Info     ; Stuck at GND ;
-; user_hash[99]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[95]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[94]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[87]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[83]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[82]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[79]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[78]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[77]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[74]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[57]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[50]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[42]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[41]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[36]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[35]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[34]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[28]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[27]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[19]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[16]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[15]       ; Input ; Info     ; Stuck at GND ;
-; user_hash[14]       ; Input ; Info     ; Stuck at VCC ;
-; user_hash[9]        ; Input ; Info     ; Stuck at GND ;
-; user_hash[8]        ; Input ; Info     ; Stuck at VCC ;
-; user_hash[3]        ; Input ; Info     ; Stuck at GND ;
-; user_hash[2]        ; Input ; Info     ; Stuck at VCC ;
-; user_hash[1]        ; Input ; Info     ; Stuck at GND ;
-; user_hash[0]        ; Input ; Info     ; Stuck at VCC ;
-+---------------------+-------+----------+--------------+
++---------------------------------------------------+
+; Inverted Register Statistics                      ;
++-----------------------------------------+---------+
+; Inverted Register                       ; Fan out ;
++-----------------------------------------+---------+
+; hex_display:h|temp_hex00                ; 1       ;
+; hex_display:h|temp_hex01                ; 1       ;
+; hex_display:h|temp_hex02                ; 1       ;
+; hex_display:h|temp_hex03                ; 1       ;
+; hex_display:h|temp_hex04                ; 1       ;
+; hex_display:h|temp_hex05                ; 1       ;
+; hex_display:h|temp_hex10                ; 1       ;
+; hex_display:h|temp_hex11                ; 1       ;
+; hex_display:h|temp_hex12                ; 1       ;
+; hex_display:h|temp_hex13                ; 1       ;
+; hex_display:h|temp_hex14                ; 1       ;
+; hex_display:h|temp_hex15                ; 1       ;
+; Total number of inverted registers = 12 ;         ;
++-----------------------------------------+---------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------+
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |md5_decoder|hex_display:h|temp_hex10 ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |md5_decoder|hex_display:h|temp_hex00 ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |md5_decoder|hex_display:h|num        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------+
+
+
++--------------------------------------------------------+
+; Port Connectivity Checks: "cam:m"                      ;
++----------------------+-------+----------+--------------+
+; Port                 ; Type  ; Severity ; Details      ;
++----------------------+-------+----------+--------------+
+; en                   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[127..120] ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[112..109] ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[101..99]  ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[95..93]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[88..87]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[80..77]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[75..71]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[69..67]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[58..54]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[52..51]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[42..41]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[36..33]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[30..29]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[7..4]     ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[2..1]     ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[119..113] ; Input ; Info     ; Stuck at GND ;
+; user_hash1[108..106] ; Input ; Info     ; Stuck at GND ;
+; user_hash1[104..102] ; Input ; Info     ; Stuck at GND ;
+; user_hash1[98..96]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[92..89]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[82..81]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[64..61]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[50..48]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[46..43]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[38..37]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[32..31]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[28..25]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[21..19]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[17..15]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[13..12]   ; Input ; Info     ; Stuck at GND ;
+; user_hash1[10..8]    ; Input ; Info     ; Stuck at GND ;
+; user_hash1[105]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[86]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[85]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[84]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[83]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[76]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[70]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[66]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[65]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[60]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[59]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[53]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[47]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[40]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[39]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[24]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[23]       ; Input ; Info     ; Stuck at GND ;
+; user_hash1[22]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[18]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[14]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[11]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash1[3]        ; Input ; Info     ; Stuck at GND ;
+; user_hash1[0]        ; Input ; Info     ; Stuck at GND ;
+; user_hash2[124..122] ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[115..110] ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[106..105] ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[100..99]  ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[96..87]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[68..67]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[65..62]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[55..50]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[42..38]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[33..32]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[27..25]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[22..21]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[17..15]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[3..2]     ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[119..116] ; Input ; Info     ; Stuck at GND ;
+; user_hash2[109..107] ; Input ; Info     ; Stuck at GND ;
+; user_hash2[104..101] ; Input ; Info     ; Stuck at GND ;
+; user_hash2[98..97]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[84..79]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[77..75]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[73..69]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[61..58]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[49..46]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[44..43]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[37..34]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[29..28]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[24..23]   ; Input ; Info     ; Stuck at GND ;
+; user_hash2[14..9]    ; Input ; Info     ; Stuck at GND ;
+; user_hash2[7..4]     ; Input ; Info     ; Stuck at GND ;
+; user_hash2[1..0]     ; Input ; Info     ; Stuck at GND ;
+; user_hash2[127]      ; Input ; Info     ; Stuck at GND ;
+; user_hash2[126]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[125]      ; Input ; Info     ; Stuck at GND ;
+; user_hash2[121]      ; Input ; Info     ; Stuck at GND ;
+; user_hash2[120]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[86]       ; Input ; Info     ; Stuck at GND ;
+; user_hash2[85]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[78]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[74]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[66]       ; Input ; Info     ; Stuck at GND ;
+; user_hash2[57]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[56]       ; Input ; Info     ; Stuck at GND ;
+; user_hash2[45]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[31]       ; Input ; Info     ; Stuck at GND ;
+; user_hash2[30]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[20]       ; Input ; Info     ; Stuck at GND ;
+; user_hash2[19]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash2[18]       ; Input ; Info     ; Stuck at GND ;
+; user_hash2[8]        ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[127..126] ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[124..120] ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[108..107] ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[99..98]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[89..87]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[85..84]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[80..79]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[77..74]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[65..64]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[62..60]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[57..51]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[44..43]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[31..30]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[23..22]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[16..11]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[3..0]     ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[117..115] ; Input ; Info     ; Stuck at GND ;
+; user_hash3[104..102] ; Input ; Info     ; Stuck at GND ;
+; user_hash3[97..94]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[92..90]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[83..81]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[73..72]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[68..66]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[59..58]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[50..47]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[42..41]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[39..37]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[35..34]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[29..26]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[21..20]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[18..17]   ; Input ; Info     ; Stuck at GND ;
+; user_hash3[10..9]    ; Input ; Info     ; Stuck at GND ;
+; user_hash3[7..4]     ; Input ; Info     ; Stuck at GND ;
+; user_hash3[125]      ; Input ; Info     ; Stuck at GND ;
+; user_hash3[119]      ; Input ; Info     ; Stuck at GND ;
+; user_hash3[118]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[114]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[113]      ; Input ; Info     ; Stuck at GND ;
+; user_hash3[112]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[111]      ; Input ; Info     ; Stuck at GND ;
+; user_hash3[110]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[109]      ; Input ; Info     ; Stuck at GND ;
+; user_hash3[106]      ; Input ; Info     ; Stuck at GND ;
+; user_hash3[105]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[101]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[100]      ; Input ; Info     ; Stuck at GND ;
+; user_hash3[93]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[86]       ; Input ; Info     ; Stuck at GND ;
+; user_hash3[78]       ; Input ; Info     ; Stuck at GND ;
+; user_hash3[71]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[70]       ; Input ; Info     ; Stuck at GND ;
+; user_hash3[69]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[63]       ; Input ; Info     ; Stuck at GND ;
+; user_hash3[46]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[45]       ; Input ; Info     ; Stuck at GND ;
+; user_hash3[40]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[36]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[33]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[32]       ; Input ; Info     ; Stuck at GND ;
+; user_hash3[25]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[24]       ; Input ; Info     ; Stuck at GND ;
+; user_hash3[19]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash3[8]        ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[127..122] ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[114..113] ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[111..108] ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[105..104] ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[101..100] ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[97..95]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[88..85]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[81..79]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[75..69]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[61..60]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[52..51]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[49..43]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[38..37]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[33..32]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[30..28]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[26..25]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[17..16]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[14..11]   ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[3..2]     ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[119..118] ; Input ; Info     ; Stuck at GND ;
+; user_hash4[116..115] ; Input ; Info     ; Stuck at GND ;
+; user_hash4[107..106] ; Input ; Info     ; Stuck at GND ;
+; user_hash4[103..102] ; Input ; Info     ; Stuck at GND ;
+; user_hash4[99..98]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[94..89]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[78..76]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[68..64]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[42..39]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[36..34]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[24..22]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[20..18]   ; Input ; Info     ; Stuck at GND ;
+; user_hash4[10..8]    ; Input ; Info     ; Stuck at GND ;
+; user_hash4[1..0]     ; Input ; Info     ; Stuck at GND ;
+; user_hash4[121]      ; Input ; Info     ; Stuck at GND ;
+; user_hash4[120]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[117]      ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[112]      ; Input ; Info     ; Stuck at GND ;
+; user_hash4[84]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[83]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[82]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[63]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[62]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[59]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[58]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[57]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[56]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[55]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[54]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[53]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[50]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[31]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[27]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[21]       ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[15]       ; Input ; Info     ; Stuck at GND ;
+; user_hash4[7]        ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[6]        ; Input ; Info     ; Stuck at GND ;
+; user_hash4[5]        ; Input ; Info     ; Stuck at VCC ;
+; user_hash4[4]        ; Input ; Info     ; Stuck at GND ;
++----------------------+-------+----------+--------------+
 
 
 +-------------------------------+
@@ -321,7 +528,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Wed Jan 18 01:04:30 2017
+    Info: Processing started: Thu Jan 19 03:25:47 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off md5_decoder -c md5_decoder
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 1 entities, in source file md5_decoder.vhd
@@ -330,22 +537,22 @@ Info (12021): Found 2 design units, including 1 entities, in source file md5_dec
 Info (12021): Found 2 design units, including 1 entities, in source file cam.vhd
     Info (12022): Found design unit 1: cam-bhv
     Info (12023): Found entity 1: cam
+Info (12021): Found 2 design units, including 1 entities, in source file hex_display.vhd
+    Info (12022): Found design unit 1: hex_display-bhv
+    Info (12023): Found entity 1: hex_display
 Info (12127): Elaborating entity "md5_decoder" for the top level hierarchy
-Info (12128): Elaborating entity "cam" for hierarchy "cam:mem"
-Warning (10540): VHDL Signal Declaration warning at cam.vhd(50): used explicit default value for signal "cam" because signal was never assigned a value
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "found" is stuck at GND
+Info (12128): Elaborating entity "cam" for hierarchy "cam:m"
+Info (12128): Elaborating entity "hex_display" for hierarchy "hex_display:h"
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "clk"
-Info (21057): Implemented 2 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 1 input pins
-    Info (21059): Implemented 1 output pins
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 619 megabytes
-    Info: Processing ended: Wed Jan 18 01:04:32 2017
-    Info: Elapsed time: 00:00:02
-    Info: Total CPU time (on all processors): 00:00:02
+Info (21057): Implemented 54 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 5 input pins
+    Info (21059): Implemented 18 output pins
+    Info (21061): Implemented 31 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 639 megabytes
+    Info: Processing ended: Thu Jan 19 03:25:48 2017
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
 
 

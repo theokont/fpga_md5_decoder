@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP2C20F484) Path("/home/theovac/Desktop/Projects/md5_cracking/output_files/") File("md5_decoder.sof") MfrSpec(OpMask(1));
+		Device PartName(EP2C20F484) Path("/home/theodoros/Desktop/Projects/fpga_md5_decoder/md5_decoder/output_files/") File("md5_decoder.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

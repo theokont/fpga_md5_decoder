@@ -55,5 +55,27 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
 set_location_assignment PIN_L1 -to clk
-set_location_assignment PIN_R20 -to found
+set_location_assignment PIN_Y19 -to found1
+set_location_assignment PIN_U19 -to found2
+set_location_assignment PIN_R19 -to found3
+set_location_assignment PIN_R20 -to found4
+set_global_assignment -name VHDL_FILE hex_display.vhd
+set_location_assignment PIN_J2 -to hex00
+set_location_assignment PIN_J1 -to hex01
+set_location_assignment PIN_H2 -to hex02
+set_location_assignment PIN_H1 -to hex03
+set_location_assignment PIN_F2 -to hex04
+set_location_assignment PIN_F1 -to hex05
+set_location_assignment PIN_E2 -to hex06
+set_location_assignment PIN_E1 -to hex10
+set_location_assignment PIN_H6 -to hex11
+set_location_assignment PIN_H5 -to hex12
+set_location_assignment PIN_H4 -to hex13
+set_location_assignment PIN_G3 -to hex14
+set_location_assignment PIN_D2 -to hex15
+set_location_assignment PIN_D1 -to hex16
+set_location_assignment PIN_V12 -to toggle1
+set_location_assignment PIN_M22 -to toggle2
+set_location_assignment PIN_L21 -to toggle3
+set_location_assignment PIN_L22 -to toggle4
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
