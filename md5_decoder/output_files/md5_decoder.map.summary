@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Thu Jan 19 03:25:48 2017
-Quartus II 64-Bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition
+Analysis & Synthesis Status : Successful - Thu Jan 26 03:38:27 2017
+Quartus II 32-bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition
 Revision Name : md5_decoder
 Top-level Entity Name : md5_decoder
 Family : Cyclone II
-Total logic elements : 29
-    Total combinational functions : 23
-    Dedicated logic registers : 23
-Total registers : 23
-Total pins : 23
+Total logic elements : 23
+    Total combinational functions : 15
+    Dedicated logic registers : 22
+Total registers : 22
+Total pins : 24
 Total virtual pins : 0
 Total memory bits : 0
 Embedded Multiplier 9-bit elements : 0

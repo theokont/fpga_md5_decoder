@@ -10,6 +10,7 @@ use ieee.std_logic_arith.all;
 entity md5_decoder is
 port 
 (		clk : in std_logic;
+		rst : in std_logic;
 		toggle1 : in std_logic;
 		toggle2 : in std_logic;
 		toggle3 : in std_logic;
@@ -45,11 +46,12 @@ signal user_hash2 : std_logic_vector(127 downto 0);
 signal user_hash3 : std_logic_vector(127 downto 0);
 signal user_hash4 : std_logic_vector(127 downto 0);
 signal valid : std_logic;
-signal address : std_logic_vector(4 downto 0);
+signal address : std_logic_vector(6 downto 0);
 
 component cam is
 port 
 (		clk : in std_logic;
+		rst : in std_logic;
 		en : in std_logic;
 		user_hash1 : in std_logic_vector(127 downto 0);
 		user_hash2 : in std_logic_vector(127 downto 0);
@@ -64,7 +66,7 @@ port
 		found3 : out std_logic;
 		found4 : out std_logic;
 		valid : out std_logic;
-		address : out std_logic_vector(4 downto 0)
+		address : out std_logic_vector(6 downto 0)
 );
 end component cam;
 
@@ -72,7 +74,7 @@ component hex_display is
 port (
 	clk : in std_logic;
 	valid : in std_logic;
-	address : in std_logic_vector(4 downto 0);
+	address : in std_logic_vector(6 downto 0);
 	hex00 : out std_logic;
 	hex01 : out std_logic;
 	hex02 : out std_logic;
@@ -93,13 +95,13 @@ end component hex_display;
 begin
 
 user_hash1 <= "11111111000000011110001000111000111000011010100111101111101110100001011111011000100001101001111001100001010001000100100011110110";
-user_hash2 <= "01011101000011111100011000011001111111111010000001000100000110111100001011111100001001111100001101001110011010111000000100001100";
+user_hash2 <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000";
 user_hash3 <= "11011111010001010101101000101100001000111011000110111100101000110111001111111000010110010001001011000010110010011111100100001111";
 user_hash4 <= "11111101001001101111001100110011100000011110101110001111111000001011010101011011111110000110001101110110001000110111100010101100";
 
 
 
 cam_en <= '1';
-m : cam port map (clk, cam_en, user_hash1, user_hash2, user_hash3, user_hash4, toggle1, toggle2, toggle3, toggle4, found1, found2, found3, found4, valid, address);
+m : cam port map (clk, rst, cam_en, user_hash1, user_hash2, user_hash3, user_hash4, toggle1, toggle2, toggle3, toggle4, found1, found2, found3, found4, valid, address);
 h : hex_display port map (clk, valid, address, hex00, hex01, hex02, hex03, hex04, hex05, hex06, hex10, hex11, hex12, hex13, hex14, hex15, hex16);
 end bhv;

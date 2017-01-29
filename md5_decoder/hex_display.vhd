@@ -11,7 +11,7 @@ entity hex_display is
 port (
 	clk : in std_logic;
 	valid : in std_logic;
-	address : in std_logic_vector(4 downto 0);
+	address : in std_logic_vector(6 downto 0);
 	hex00 : out std_logic;
 	hex01 : out std_logic;
 	hex02 : out std_logic;
@@ -66,8 +66,26 @@ variable num : integer;
 begin
 if rising_edge(clk) then
 	if (valid = '1') then 
-		if (conv_integer(address) > 9) then 
+		if (conv_integer(address) < 10) then 
+			num := conv_integer(address);
+		elsif (conv_integer(address) < 20) then 
 			num := conv_integer(address) - 10;
+		elsif (conv_integer(address) < 30) then 
+			num := conv_integer(address) - 20;
+		elsif (conv_integer(address) < 40) then 
+			num := conv_integer(address) - 30;
+		elsif (conv_integer(address) < 50) then 
+			num := conv_integer(address) - 40;
+		elsif (conv_integer(address) < 60) then 
+			num := conv_integer(address) - 50;
+		elsif (conv_integer(address) < 70) then 
+			num := conv_integer(address) - 60;
+		elsif (conv_integer(address) < 80) then 
+			num := conv_integer(address) - 70;
+		elsif (conv_integer(address) < 90) then 
+			num := conv_integer(address) - 80;
+		elsif (conv_integer(address) < 100) then 
+			num := conv_integer(address) - 90;
 		else
 			num := conv_integer(address);
 		end if;
@@ -82,7 +100,7 @@ if rising_edge(clk) then
 		temp_hex03 := '0';
 		temp_hex04 := '0';
 		temp_hex05 := '0';
-		temp_hex06 := '0';
+		temp_hex06 := '1';
 	elsif (num = 1) then 
 		temp_hex00 := '1';
 		temp_hex01 := '0';
